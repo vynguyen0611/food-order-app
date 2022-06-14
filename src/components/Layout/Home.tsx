@@ -23,7 +23,9 @@ export default function Home() {
         }}
       >
         <Header />
-        <Meals />
+        <main>
+          <Meals />
+        </main>
       </Box>
     </>
   );
