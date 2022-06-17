@@ -1,7 +1,7 @@
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Button, Link, Typography } from '@mui/material';
 
-export default function CartButton() {
+export default function CartButton(props: any) {
   return (
     <>
       <Button
@@ -13,6 +13,7 @@ export default function CartButton() {
           color: "white",
         }}
         href="/"
+        onClick={props.onClick}
       >
         <ShoppingCartIcon></ShoppingCartIcon>
         <Typography variant="body1" mx={1}>

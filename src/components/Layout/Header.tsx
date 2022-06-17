@@ -1,12 +1,13 @@
 import Image from 'mui-image';
 import { useState } from 'react';
 
+import { PropaneSharp } from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { AppBar, Box, IconButton, Stack, Toolbar, Tooltip } from '@mui/material';
 
 import CartButton from './CartButton';
 
-export default function Header() {
+export default function Header(props: any) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -18,7 +19,7 @@ export default function Header() {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1, mb: "5px" }}>
         <AppBar
           position="fixed"
           sx={{
@@ -44,7 +45,7 @@ export default function Header() {
               bgColor="transparent"
             />
             <Stack direction="row" spacing={2}>
-              <CartButton />
+              <CartButton onClick={props.onShowCart} />
               <Tooltip title="Account settings">
                 <IconButton
                   onClick={handleClick}
