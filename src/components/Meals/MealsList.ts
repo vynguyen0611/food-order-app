@@ -1,4 +1,12 @@
-export const data = [
+export type Product = {
+  id: string;
+  title: string;
+  image: string;
+  description: string;
+  unitPrice: number;
+};
+
+export const data: Product[] = [
   {
     id: "1",
     title: "Crispy Spring Rolls (2 Rolls)",

@@ -1,28 +1,14 @@
-import { isTemplateExpression } from 'typescript';
-
+import ClearIcon from '@mui/icons-material/Clear';
 import {
-    Box, Button, ButtonGroup, Card, CardActions, CardContent, Container, Grid, Paper, Stack, Table,
-    TableBody, TableCell, TableContainer, TableHead, TableRow, Typography
+    Button, Card, CardActions, CardContent, Container, Stack, Table, TableBody, TableCell,
+    TableContainer, TableHead, TableRow, Typography
 } from '@mui/material';
 
+import useCounter from '../../hooks/useCart';
 import Modal from '../UI/Modal';
 
 export default function Cart(props: any) {
-  const cartItems = [
-    {
-      id: "1",
-      name: "Crispy Spring Rolls (2 Rolls)",
-      quantity: 3,
-      price: 5.0,
-    },
-    {
-      id: "2",
-      name: "Summer Rolls (2 Rolls)",
-      quantity: 1,
-      price: 5.5,
-    },
-  ];
-
+  const { cart, deleteItem } = useCounter(props.id);
   return (
     <Modal onCloseCart={props.onCloseCart}>
       <Container
@@ -32,52 +18,76 @@ export default function Cart(props: any) {
           p: 2,
         }}
       >
-        <Card sx={{ p: 1, maxWidth: 600, borderRadius: "14px" }}>
+        <Card
+          sx={{
+            p: 1,
+            maxWidth: 700,
+            minWidth: 400,
+            borderRadius: "14px",
+          }}
+        >
           <CardContent>
-            <TableContainer>
-              <Table sx={{ minWidth: 500 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>No.</TableCell>
-                    <TableCell align="left" variant="head">
-                      Name
-                    </TableCell>
-                    <TableCell align="right">Quan.</TableCell>
-                    <TableCell align="right">Unit Price</TableCell>
-                    <TableCell align="right">Price</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {cartItems.map((item) => (
-                    <TableRow key={item.id}>
-                      <TableCell>{item.id}</TableCell>
-                      <TableCell align="left">{item.name}</TableCell>
-                      <TableCell align="right">{item.quantity}</TableCell>
-                      <TableCell align="right">
-                        {item.price.toFixed(1)}
-                      </TableCell>
-                      <TableCell align="right">
-                        {item.quantity * item.price}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <Stack
-              direction="row"
-              spacing={4}
-              mt={2}
-              justifyContent="right"
-              pr="16px"
-            >
-              <Typography variant="body1" fontStyle="italic">
-                Total Amount:
+            {cart.length <= 0 && (
+              <Typography variant="h6" align="center">
+                Cart empty!
               </Typography>
-              <Typography variant="body1" color="red" fontStyle="bold">
-                $ {cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0)}
-              </Typography>
-            </Stack>
+            )}
+            {cart.length > 0 && (
+              <>
+                <TableContainer>
+                  <Table sx={{ minWidth: 500 }} aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>No.</TableCell>
+                        <TableCell align="left" variant="head">
+                          Name
+                        </TableCell>
+                        <TableCell align="right">Quan.</TableCell>
+                        <TableCell align="center">Unit Price</TableCell>
+                        <TableCell align="right">Price</TableCell>
+                        <TableCell align="center">Delete</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {cart.map((item, index) => (
+                        <TableRow key={item.id}>
+                          <TableCell>{index + 1}</TableCell>
+                          <TableCell align="left">{item.title}</TableCell>
+                          <TableCell align="right">{item.quantity}</TableCell>
+                          <TableCell align="right" defaultValue={0}>
+                            {item.unitPrice.toFixed(2)}
+                          </TableCell>
+                          <TableCell align="right" defaultValue={0}>
+                            {(item.quantity * item.unitPrice).toFixed(2)}
+                          </TableCell>
+                          <TableCell align="justify">
+                            <Button onClick={() => deleteItem(item.id)}>
+                              <ClearIcon fontSize="small" />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+                <Stack
+                  direction="row"
+                  spacing={4}
+                  mt={2}
+                  justifyContent="right"
+                  pr="16px"
+                >
+                  <Typography variant="body1" fontStyle="italic">
+                    Total Amount:
+                  </Typography>
+                  <Typography variant="body1" color="red" fontStyle="bold">
+                    {cart
+                      .reduce((sum, i) => sum + i.unitPrice * i.quantity, 0)
+                      .toFixed(2)}
+                  </Typography>
+                </Stack>
+              </>
+            )}
           </CardContent>
           <CardActions
             sx={{
@@ -92,9 +102,11 @@ export default function Cart(props: any) {
             >
               Close
             </Button>
-            <Button variant="contained" size="small">
-              Order
-            </Button>
+            {cart.length > 0 && (
+              <Button variant="contained" size="small">
+                Order
+              </Button>
+            )}
           </CardActions>
         </Card>
       </Container>

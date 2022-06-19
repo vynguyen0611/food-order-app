@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
@@ -8,30 +8,15 @@ import {
     Typography
 } from '@mui/material';
 
-import { Item, useAppContext } from '../context/cart-context';
+import useCounter from '../../hooks/useCart';
+import { Product } from './MealsList';
 
-export default function MealItem(props: any) {
-  const [itemCount, setItemCount] = useState(0);
-  const { items } = useAppContext();
-  let addedItem = localStorage.getItem("addedItem");
-
-  const addItemHandler = () => {
-    setItemCount(itemCount + 1);
-
-    localStorage.setItem(
-      "addedItem",
-      JSON.stringify({
-        id: props.id,
-        title: props.title,
-        unitPrice: props.unitPrice,
-        quantity: itemCount + 1,
-      })
-    );
-  };
+export default function MealItem(props: Product) {
+  const { count, increment, decrement } = useCounter(props.id);
 
   return (
     <>
-      <Grid item xs={12} sm={6} md={4} key={props.id}>
+      <Grid item xs={12} sm={6} md={4}>
         <Card
           sx={{
             height: 400,
@@ -71,18 +56,14 @@ export default function MealItem(props: any) {
             </Typography>
           </CardContent>
           <CardActions disableSpacing>
-            <Badge badgeContent={itemCount} color="primary">
+            <Badge badgeContent={count} color="primary">
               <ShoppingCartIcon color="action" />
             </Badge>
             <ButtonGroup variant="text">
-              <Button
-                onClick={() => {
-                  setItemCount(Math.max(itemCount - 1, 0));
-                }}
-              >
+              <Button onClick={() => decrement(props)}>
                 <RemoveCircleOutlineIcon fontSize="small" />
               </Button>
-              <Button onClick={addItemHandler}>
+              <Button onClick={() => increment(props)}>
                 <AddCircleOutlineIcon fontSize="small" />
               </Button>
             </ButtonGroup>
