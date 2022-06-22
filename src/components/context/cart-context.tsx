@@ -1,9 +1,4 @@
-import { AnyNsRecord } from 'dns';
-import React, { useContext, useEffect, useReducer, useState } from 'react';
-
-import { CallToActionRounded } from '@mui/icons-material';
-
-import MealItem from '../Meals/MealItem';
+import React, { useContext, useReducer } from 'react';
 
 export interface Item {
   id: string;

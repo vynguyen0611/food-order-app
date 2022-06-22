@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react';
-
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {
-    Badge, Button, ButtonGroup, Card, CardActions, CardContent, CardMedia, Grid, Paper, Stack,
-    Typography
+    Badge, Button, ButtonGroup, Card, CardActions, CardContent, CardMedia, Grid, Stack, Typography
 } from '@mui/material';
 
 import useCounter from '../../hooks/useCart';
@@ -19,6 +16,7 @@ export default function MealItem(props: Product) {
       <Grid item xs={12} sm={6} md={4}>
         <Card
           sx={{
+            mt: 0,
             height: 400,
             display: "flex",
             flexDirection: "column",

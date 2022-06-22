@@ -1,114 +1,138 @@
+import AddIcon from '@mui/icons-material/Add';
 import ClearIcon from '@mui/icons-material/Clear';
+import RemoveIcon from '@mui/icons-material/Remove';
 import {
-    Button, Card, CardActions, CardContent, Container, Stack, Table, TableBody, TableCell,
-    TableContainer, TableHead, TableRow, Typography
+    Box, Button, Container, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
+    Typography
 } from '@mui/material';
 
 import useCounter from '../../hooks/useCart';
 import Modal from '../UI/Modal';
 
 export default function Cart(props: any) {
-  const { cart, deleteItem } = useCounter(props.id);
+  const { cart, deleteItem, decreaseItemInCart, increaseItemInCart } =
+    useCounter(props.id);
   return (
     <Modal onCloseCart={props.onCloseCart}>
       <Container
         sx={{
           display: "flex",
           justifyContent: "center",
-          p: 2,
         }}
       >
-        <Card
+        <Box
           sx={{
-            p: 1,
-            maxWidth: 700,
-            minWidth: 400,
+            // display: "flex",
+            backgroundColor: "white",
             borderRadius: "14px",
+            alignItems: "center",
+            justifyContent: "center",
+            p: 2,
+            minWidth: 300,
+            minHeight: 120,
+            display: "flex",
+            flexDirection: "column",
+            // height: 700,
+            overflow: "hidden",
+            overflowY: "scroll",
           }}
         >
-          <CardContent>
-            {cart.length <= 0 && (
-              <Typography variant="h6" align="center">
-                Cart empty!
+          {cart.length <= 0 && (
+            <Stack sx={{ justifyContent: "center", my: 2 }}>
+              <Typography variant="h5" align="center">
+                Cart is empty!
               </Typography>
-            )}
-            {cart.length > 0 && (
-              <>
-                <TableContainer>
-                  <Table sx={{ minWidth: 500 }} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>No.</TableCell>
-                        <TableCell align="left" variant="head">
-                          Name
+            </Stack>
+          )}
+          {cart.length > 0 && (
+            <Stack>
+              <TableContainer>
+                <Table sx={{ minWidth: 600 }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>No.</TableCell>
+                      <TableCell align="left" variant="head">
+                        Items
+                      </TableCell>
+                      <TableCell align="center" sx={{ minWidth: 140 }}>
+                        Quan.
+                      </TableCell>
+                      <TableCell align="center" sx={{ minWidth: 65 }}>
+                        Unit Price
+                      </TableCell>
+                      <TableCell align="center">Price</TableCell>
+                      <TableCell align="center">Delete</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {cart.map((item, index) => (
+                      <TableRow key={item.id}>
+                        <TableCell>{index + 1}</TableCell>
+                        <TableCell align="left" sx={{ minWidth: 160 }}>
+                          {item.title}
                         </TableCell>
-                        <TableCell align="right">Quan.</TableCell>
-                        <TableCell align="center">Unit Price</TableCell>
-                        <TableCell align="right">Price</TableCell>
-                        <TableCell align="center">Delete</TableCell>
+                        <TableCell align="right" sx={{ minWidth: 140 }}>
+                          <Button onClick={() => decreaseItemInCart(item.id)}>
+                            <RemoveIcon fontSize="small" />
+                          </Button>
+                          {item.quantity}
+                          <Button onClick={() => increaseItemInCart(item.id)}>
+                            <AddIcon fontSize="small" />
+                          </Button>
+                        </TableCell>
+                        <TableCell align="right" defaultValue={0}>
+                          {item.unitPrice.toFixed(2)}
+                        </TableCell>
+                        <TableCell align="right" defaultValue={0}>
+                          {(item.quantity * item.unitPrice).toFixed(2)}
+                        </TableCell>
+                        <TableCell align="justify">
+                          <Button onClick={() => deleteItem(item.id)}>
+                            <ClearIcon fontSize="small" />
+                          </Button>
+                        </TableCell>
                       </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {cart.map((item, index) => (
-                        <TableRow key={item.id}>
-                          <TableCell>{index + 1}</TableCell>
-                          <TableCell align="left">{item.title}</TableCell>
-                          <TableCell align="right">{item.quantity}</TableCell>
-                          <TableCell align="right" defaultValue={0}>
-                            {item.unitPrice.toFixed(2)}
-                          </TableCell>
-                          <TableCell align="right" defaultValue={0}>
-                            {(item.quantity * item.unitPrice).toFixed(2)}
-                          </TableCell>
-                          <TableCell align="justify">
-                            <Button onClick={() => deleteItem(item.id)}>
-                              <ClearIcon fontSize="small" />
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-                <Stack
-                  direction="row"
-                  spacing={4}
-                  mt={2}
-                  justifyContent="right"
-                  pr="16px"
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <Stack
+                direction="row"
+                spacing={2}
+                my={2}
+                justifyContent="right"
+                pr="16px"
+              >
+                <Typography variant="body1" fontWeight="bold">
+                  Total Amount:
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="red"
+                  sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
                 >
-                  <Typography variant="body1" fontStyle="italic">
-                    Total Amount:
-                  </Typography>
-                  <Typography variant="body1" color="red" fontStyle="bold">
-                    {cart
-                      .reduce((sum, i) => sum + i.unitPrice * i.quantity, 0)
-                      .toFixed(2)}
-                  </Typography>
-                </Stack>
-              </>
-            )}
-          </CardContent>
-          <CardActions
-            sx={{
-              justifyContent: "center",
-            }}
+                  {cart
+                    .reduce((sum, i) => sum + i.unitPrice * i.quantity, 0)
+                    .toFixed(2)}
+                </Typography>
+              </Stack>
+            </Stack>
+          )}
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{ justifyContent: "center", my: 1.5 }}
           >
             <Button
               variant="contained"
-              size="small"
               sx={{ marginRight: 2 }}
               onClick={props.onCloseCart}
             >
               Close
             </Button>
-            {cart.length > 0 && (
-              <Button variant="contained" size="small">
-                Order
-              </Button>
-            )}
-          </CardActions>
-        </Card>
+            {cart.length > 0 && <Button variant="contained">Order</Button>}
+          </Stack>
+        </Box>
       </Container>
     </Modal>
   );

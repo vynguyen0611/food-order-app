@@ -38,7 +38,7 @@ const useCounter = (id: string) => {
   };
 
   const decrementCart = (newItem: Product) => {
-    const newCart = cart.map((meal, indx) => {
+    const newCart = cart.map((meal) => {
       if (meal.id === newItem.id) {
         return { ...meal, quantity: meal.quantity - 1 };
       }
@@ -49,16 +49,42 @@ const useCounter = (id: string) => {
     setCart(updatedCart);
   };
 
+  const increaseItemInCart = (id: string) => {
+    const increasedItem = cart.find((c) => c.id === id);
+    if (increasedItem) {
+      const newCart = cart.map((meal) => {
+        if (meal.id === id) {
+          return { ...meal, quantity: meal.quantity + 1 };
+        }
+        return meal;
+      });
+
+      setCart(newCart);
+    }
+  };
+
+  const decreaseItemInCart = (id: string) => {
+    const increasedItem = cart.find((c) => c.id === id);
+    if (increasedItem) {
+      const newCart = cart.map((meal) => {
+        if (meal.id === id) {
+          return { ...meal, quantity: meal.quantity - 1 };
+        }
+        return meal;
+      });
+
+      const updatedCart = newCart.filter((i) => i.quantity > 0);
+      setCart(updatedCart);
+    }
+  };
+
   const totalItems = cart.reduce(
     (previousValue, currentValue) => previousValue + currentValue.quantity,
     0
   );
 
   const deleteItem = (id: string) => {
-    const item = cart.find((c) => c.id === id);
-    if (item) {
-      setCart((previousCart) => previousCart.filter((item) => item.id !== id));
-    }
+    setCart((previousCart) => previousCart.filter((item) => item.id !== id));
   };
 
   return {
@@ -68,6 +94,8 @@ const useCounter = (id: string) => {
     increment: incrementCart,
     decrement: decrementCart,
     deleteItem: deleteItem,
+    increaseItemInCart: increaseItemInCart,
+    decreaseItemInCart: decreaseItemInCart,
   };
 };
 

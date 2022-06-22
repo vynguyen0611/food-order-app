@@ -1,7 +1,6 @@
 import Image from 'mui-image';
 import { useState } from 'react';
 
-import { PropaneSharp } from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { AppBar, Box, IconButton, Stack, Toolbar, Tooltip } from '@mui/material';
 
@@ -12,9 +11,6 @@ export default function Header(props: any) {
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
   };
 
   return (

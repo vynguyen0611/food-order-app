@@ -6,13 +6,13 @@ export type Product = {
   unitPrice: number;
 };
 
-export const data: Product[] = [
+export const data1: Product[] = [
   {
     id: "1",
     title: "Crispy Spring Rolls (2 Rolls)",
     image: "chagio.png",
     description:
-      "Shrimp, ground chicken, taro and vegetables. Served with fish sauce.",
+      "Shrimp, ground chicken, taro and vegetables. Served with fish sauce",
     unitPrice: 5.0,
   },
   {
@@ -49,13 +49,35 @@ export const data: Product[] = [
     title: "Tom Yum Soup 🌶️",
     image: "tomyum.png",
     description:
-      "Lemongrass, kaffir lime, mushrooms and tomatoes in a spicy chili broth.",
+      "Lemongrass, kaffir lime, mushrooms and tomatoes in a spicy chili broth",
     unitPrice: 6.5,
+  },
+  {
+    id: "7",
+    title: "Banh Mi / Vietnamese Sandwich",
+    image: "banhmi.png",
+    description: "Served with pate, pickled carrot, cucumber, and coriander",
+    unitPrice: 6.0,
+  },
+  {
+    id: "8",
+    title: "Pad Thai 🥜",
+    image: "padthai.png",
+    description:
+      "Rice noodle, egg, beansprout, tofu, carrot, crushed peanuts, and sliced lime",
+    unitPrice: 13.99,
+  },
+  {
+    id: "9",
+    title: "Wonton Soup",
+    image: "soups.png",
+    description: "Pork and shrimp wrapped in wonton wrapper",
+    unitPrice: 6.0,
   },
 ];
 
 const MealsList = () => {
-  return [data];
+  return [data1];
 };
 
 export default MealsList;

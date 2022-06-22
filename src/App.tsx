@@ -1,17 +1,18 @@
-import { ReactEventHandler, useState } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { Box } from '@mui/material';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ToastContainer } from 'react-toastify';
 
-import Cart from './components/Cart/Cart';
 import Home from './components/Home';
-import Header from './components/Layout/Header';
-import Meals from './components/Meals/Meals';
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <Home />
-    </>
+      <ToastContainer />
+    </QueryClientProvider>
   );
 }
 
