@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import AddIcon from '@mui/icons-material/Add';
 import ClearIcon from '@mui/icons-material/Clear';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -12,6 +14,12 @@ import Modal from '../UI/Modal';
 export default function Cart(props: any) {
   const { cart, deleteItem, decreaseItemInCart, increaseItemInCart } =
     useCounter(props.id);
+
+  let navigate = useNavigate();
+  const handleCheckout = () => {
+    navigate("../checkout");
+  };
+
   return (
     <Modal onCloseCart={props.onCloseCart}>
       <Container
@@ -125,12 +133,20 @@ export default function Cart(props: any) {
           >
             <Button
               variant="contained"
-              sx={{ marginRight: 2 }}
+              sx={{ marginRight: 2, minWidth: "30px" }}
               onClick={props.onCloseCart}
             >
               Close
             </Button>
-            {cart.length > 0 && <Button variant="contained">Order</Button>}
+            {cart.length > 0 && (
+              <Button
+                variant="contained"
+                onClick={handleCheckout}
+                sx={{ minWidth: "20px" }}
+              >
+                Checkout
+              </Button>
+            )}
           </Stack>
         </Box>
       </Container>

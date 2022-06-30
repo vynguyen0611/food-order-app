@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 import { Box } from '@mui/material';
 
 import Cart from './Cart/Cart';
+import Checkout from './Cart/Checkout';
 import { CartContextProvider } from './context/cart-context';
 import Header from './Layout/Header';
 import Meals from './Meals/Meals';
@@ -39,7 +41,10 @@ export default function Home() {
         {cartIsShown && <Cart onCloseCart={hideCartHandler} />}
         <Header onShowCart={showCartHandler} />
         <main>
-          <Meals />
+          <Routes>
+            <Route path="/" element={<Meals />} />
+            <Route path="/checkout" element={<Checkout />} />
+          </Routes>
         </main>
       </Box>
     </CartContextProvider>
