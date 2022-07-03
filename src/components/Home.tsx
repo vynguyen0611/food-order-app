@@ -3,8 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 
 import { Box } from '@mui/material';
 
-import Cart from './Cart/Cart';
 import Checkout from './Cart/Checkout';
+import ViewCart from './Cart/ViewCart';
 import { CartContextProvider } from './context/cart-context';
 import Header from './Layout/Header';
 import Meals from './Meals/Meals';
@@ -28,7 +28,7 @@ export default function Home() {
         sx={{
           overflow: "auto",
           objectFit: "cover",
-          position: "absolute",
+          position: "fixed",
           height: "100%",
           width: "100%",
           backgroundImage:
@@ -38,13 +38,24 @@ export default function Home() {
           backgroundRepeat: "no-repeat",
         }}
       >
-        {cartIsShown && <Cart onCloseCart={hideCartHandler} />}
+        {/* {cartIsShown && <Cart onCloseCart={hideCartHandler} />} */}
         <Header onShowCart={showCartHandler} />
         <main>
-          <Routes>
-            <Route path="/" element={<Meals />} />
-            <Route path="/checkout" element={<Checkout />} />
-          </Routes>
+          <Box
+            sx={{
+              position: "relative",
+              alignItems: "center",
+              marginTop: "100px",
+              padding: "2rem 0",
+              width: "100%",
+            }}
+          >
+            <Routes>
+              <Route path="/" element={<Meals />} />
+              <Route path="/cart" element={<ViewCart />} />
+              <Route path="/checkout" element={<Checkout />} />
+            </Routes>
+          </Box>
         </main>
       </Box>
     </CartContextProvider>

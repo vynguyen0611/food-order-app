@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 
-import { Card, Container, Grid, Typography } from '@mui/material';
+import { Container, Grid, Stack, Typography } from '@mui/material';
 
 import MealItem from './MealItem';
 import { Product } from './MealsList';
@@ -29,16 +29,17 @@ export default function Meals() {
 
   return (
     <>
-      <Container sx={{ pt: 8 }}>
-        <Typography variant="h6" fontWeight={700} color="white">
-          MENU
-        </Typography>
-        <Grid container spacing={6} mt={0.5}>
+      <Container>
+        <Stack sx={{ mb: 4 }}>
+          <Typography variant="h6" fontWeight={700} color="white">
+            MENU
+          </Typography>
+        </Stack>
+        <Grid container spacing={6}>
           {!isLoading &&
             data?.map((item: Product) => <MealItem key={item.id} {...item} />)}
         </Grid>
       </Container>
-      <Card></Card>
     </>
   );
 }

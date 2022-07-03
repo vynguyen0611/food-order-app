@@ -11,7 +11,6 @@ export default function CartButton(props: any) {
       <Button
         variant="contained"
         sx={{
-          // backgroundColor: "#4d1601",
           borderRadius: "25px",
           alignItems: "center",
           color: "white",

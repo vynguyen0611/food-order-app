@@ -48,7 +48,6 @@ export default function MealItem(props: Product) {
                 {props.unitPrice.toFixed(2)}
               </Typography>
             </Stack>
-
             <Typography variant="body2" color="#677788">
               {props.description}
             </Typography>
