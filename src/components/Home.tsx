@@ -48,6 +48,7 @@ export default function Home() {
               marginTop: "100px",
               padding: "2rem 0",
               width: "100%",
+              height: "100%",
             }}
           >
             <Routes>
