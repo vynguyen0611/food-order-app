@@ -17,18 +17,13 @@ export default function Home() {
     setCartIsShown(true);
   };
 
-  const hideCartHandler = (event: React.MouseEvent) => {
-    event.preventDefault();
-    setCartIsShown(false);
-  };
-
   return (
     <CartContextProvider>
       <Box
         sx={{
-          overflow: "auto",
+          position: "relative",
+          overflow: "hidden",
           objectFit: "cover",
-          position: "fixed",
           height: "100%",
           width: "100%",
           backgroundImage:
@@ -43,9 +38,8 @@ export default function Home() {
         <main>
           <Box
             sx={{
-              position: "relative",
               alignItems: "center",
-              marginTop: "100px",
+              marginTop: "20px",
               padding: "2rem 0",
               width: "100%",
               height: "100%",

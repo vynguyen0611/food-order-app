@@ -9,6 +9,7 @@ import CartButton from './CartButton';
 
 export default function Header(props: any) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -23,11 +24,7 @@ export default function Header(props: any) {
     <>
       <Box
         sx={{
-          position: "fixed",
-          flexGrow: 1,
           mb: "5px",
-          top: 0,
-          left: 0,
           width: "100%",
           height: "100px",
           color: "white",
@@ -35,7 +32,6 @@ export default function Header(props: any) {
           justifyContent: "space-between",
           alignItems: "center",
           padding: "0 10%",
-          // boxShadow: "0 2px 8px rgba(0, 0, 0, 0.25)",
           zIndex: 10,
         }}
       >
