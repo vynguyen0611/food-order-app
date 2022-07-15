@@ -1,26 +1,19 @@
-import Image from 'mui-image';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import AddIcon from '@mui/icons-material/Add';
-import ClearIcon from '@mui/icons-material/Clear';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import RemoveIcon from '@mui/icons-material/Remove';
-import {
-    Box, Button, Container, Divider, Grid, Stack, Table, TableBody, TableCell, TableContainer,
-    TableHead, TableRow, Typography
-} from '@mui/material';
+import { Box, Button, Container, Divider, Grid, Stack, Typography } from '@mui/material';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 
 import useCounter from '../../hooks/useCart';
+import Cart from './Cart';
 import Checkout from './Checkout';
 import OrderSumary from './OrderSumary';
 
 export default function ViewCart(props: any) {
-  const { cart, deleteItem, decreaseItemInCart, increaseItemInCart } =
-    useCounter(props.id);
+  const { cart } = useCounter(props.id);
 
   const [isCheckout, setIsCheckout] = useState(false);
   const [cartExpanded, setcartExpanded] = useState<boolean>(false);
@@ -102,6 +95,7 @@ export default function ViewCart(props: any) {
                       expandIcon={
                         <ExpandMoreIcon style={{ color: "#1976d2" }} />
                       }
+                      sx={{ pl: "24px" }}
                     >
                       <Typography
                         variant="body1"
@@ -112,102 +106,7 @@ export default function ViewCart(props: any) {
                       </Typography>
                     </MuiAccordionSummary>
                     <MuiAccordionDetails sx={{ p: "0 8px 20px 16px" }}>
-                      <Stack
-                        direction="row"
-                        spacing={2}
-                        justifyContent="space-between"
-                      >
-                        <Stack spacing={2} alignItems="flex-start">
-                          <Stack>
-                            <TableContainer>
-                              <Table aria-label="simple table">
-                                <TableHead>
-                                  <TableRow>
-                                    <TableCell>No.</TableCell>
-                                    <TableCell align="right"></TableCell>
-                                    <TableCell align="left" variant="head">
-                                      Items
-                                    </TableCell>
-                                    <TableCell align="center">Quan.</TableCell>
-                                    <TableCell align="right">
-                                      Unit Price
-                                    </TableCell>
-                                    <TableCell align="right">Price</TableCell>
-                                    <TableCell align="center">Delete</TableCell>
-                                  </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                  {cart.map((item, index) => {
-                                    const img = "/images/meals/" + item.image;
-                                    return (
-                                      <TableRow key={item.id}>
-                                        <TableCell>{index + 1}</TableCell>
-                                        <TableCell align="left">
-                                          <Image
-                                            src={img}
-                                            height="80px"
-                                            width="80px"
-                                            bgColor="transparent"
-                                          />
-                                        </TableCell>
-                                        <TableCell align="left">
-                                          {item.title}
-                                        </TableCell>
-                                        <TableCell align="center">
-                                          <Button
-                                            onClick={() =>
-                                              decreaseItemInCart(item.id)
-                                            }
-                                          >
-                                            <RemoveIcon fontSize="small" />
-                                          </Button>
-                                          {item.quantity}
-                                          <Button
-                                            onClick={() =>
-                                              increaseItemInCart(item.id)
-                                            }
-                                          >
-                                            <AddIcon fontSize="small" />
-                                          </Button>
-                                        </TableCell>
-                                        <TableCell
-                                          align="right"
-                                          defaultValue={0}
-                                        >
-                                          {item.unitPrice.toFixed(2)}
-                                        </TableCell>
-                                        <TableCell
-                                          align="right"
-                                          defaultValue={0}
-                                        >
-                                          {(
-                                            item.quantity * item.unitPrice
-                                          ).toFixed(2)}
-                                        </TableCell>
-                                        <TableCell align="center">
-                                          <Button
-                                            onClick={() => deleteItem(item.id)}
-                                          >
-                                            <ClearIcon fontSize="small" />
-                                          </Button>
-                                        </TableCell>
-                                      </TableRow>
-                                    );
-                                  })}
-                                </TableBody>
-                              </Table>
-                            </TableContainer>
-                          </Stack>
-                          <Button
-                            variant="contained"
-                            component={Link}
-                            to="/"
-                            size="small"
-                          >
-                            Add more
-                          </Button>
-                        </Stack>
-                      </Stack>
+                      <Cart />
                     </MuiAccordionDetails>
                   </MuiAccordion>
                 </Stack>
@@ -222,6 +121,7 @@ export default function ViewCart(props: any) {
                         expandIcon={
                           <ExpandMoreIcon style={{ color: "#1976d2" }} />
                         }
+                        sx={{ pl: "24px" }}
                       >
                         <Typography
                           variant="body1"
@@ -232,7 +132,7 @@ export default function ViewCart(props: any) {
                         </Typography>
                         <Divider />
                       </MuiAccordionSummary>
-                      <MuiAccordionDetails>
+                      <MuiAccordionDetails sx={{ p: "0 8px 20px 16px" }}>
                         <Checkout />
                       </MuiAccordionDetails>
                     </MuiAccordion>

@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { Box, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 
 import TextField from '../form/TextField';
 
@@ -18,12 +18,6 @@ interface CheckoutForm {
 }
 
 export default function Checkout(props: any) {
-  //   const {
-  //     handleSubmit,
-  //     control,
-  //     formState: { errors },
-  //   } = useForm<CheckoutForm>();
-
   const methods = useForm<CheckoutForm>({
     mode: "all",
   });
@@ -37,7 +31,7 @@ export default function Checkout(props: any) {
     <>
       <Stack
         sx={{
-          p: "0 1rem 1rem 1rem",
+          p: "0 16px 16px 8px",
         }}
       >
         <FormProvider {...methods}>
@@ -73,25 +67,38 @@ export default function Checkout(props: any) {
                         label="Street Address"
                         name="street_address"
                         size="small"
+                        defaultValue=""
                       />
 
                       <TextField
                         label="Postal code"
                         name="postal_code"
                         size="small"
+                        defaultValue=""
                       />
                     </Stack>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <Stack spacing={2}>
+                    <Stack spacing={2} sx={{ p: 1 }}>
                       <TextField
                         label="Phone number"
                         name="phone_number"
                         size="small"
+                        defaultValue=""
                       />
 
-                      <TextField label="City" name="city" size="small" />
-                      <TextField label="Note" name="note" size="small" />
+                      <TextField
+                        label="City"
+                        name="city"
+                        size="small"
+                        defaultValue=""
+                      />
+                      <TextField
+                        label="Note"
+                        name="note"
+                        size="small"
+                        defaultValue=""
+                      />
                     </Stack>
                   </Grid>
                 </Grid>
@@ -112,7 +119,7 @@ export default function Checkout(props: any) {
               >
                 <Grid container spacing={4} sx={{ p: "10px" }}>
                   <Grid item xs={12} md={6}>
-                    <Stack spacing={2}>
+                    <Stack spacing={2} sx={{ p: 1 }}>
                       <TextField
                         label="Debit/Credit Card"
                         name="card"
@@ -123,21 +130,29 @@ export default function Checkout(props: any) {
                         label="Name on card"
                         name="card_name"
                         size="small"
+                        defaultValue=""
                       />
-                      <TextField label="CVV" name="cvv" size="small" />
+                      <TextField
+                        label="CVV"
+                        name="cvv"
+                        size="small"
+                        defaultValue=""
+                      />
                     </Stack>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <Stack spacing={2}>
+                    <Stack spacing={2} sx={{ p: 1 }}>
                       <TextField
                         label="Card number"
                         name="card_number"
                         size="small"
+                        defaultValue=""
                       />
                       <TextField
                         label="MM/YY"
                         name="expiry_date"
                         size="small"
+                        defaultValue=""
                       />
                     </Stack>
                   </Grid>
