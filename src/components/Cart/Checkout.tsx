@@ -43,7 +43,7 @@ export default function Checkout(props: any) {
           >
             <Stack>
               <Stack sx={{ my: 2 }}>
-                <Typography variant="h6">Shipping Address</Typography>
+                <Typography variant="subtitle1">Shipping Address</Typography>
               </Stack>
               <Box
                 sx={{
@@ -60,21 +60,21 @@ export default function Checkout(props: any) {
                       <TextField
                         label="Name"
                         name="name"
-                        defaultValue=""
+                        defaultValue="Vy Nguyen"
                         size="small"
                       />
                       <TextField
                         label="Street Address"
                         name="street_address"
                         size="small"
-                        defaultValue=""
+                        defaultValue="Unit 312 - 1162 Ouellette Ave"
                       />
 
                       <TextField
                         label="Postal code"
                         name="postal_code"
                         size="small"
-                        defaultValue=""
+                        defaultValue="123456"
                       />
                     </Stack>
                   </Grid>
@@ -84,14 +84,14 @@ export default function Checkout(props: any) {
                         label="Phone number"
                         name="phone_number"
                         size="small"
-                        defaultValue=""
+                        defaultValue="738838888"
                       />
 
                       <TextField
                         label="City"
                         name="city"
                         size="small"
-                        defaultValue=""
+                        defaultValue="windsor"
                       />
                       <TextField
                         label="Note"
@@ -106,7 +106,7 @@ export default function Checkout(props: any) {
             </Stack>
             <Stack sx={{ my: 2 }}>
               <Stack sx={{ my: 2 }}>
-                <Typography variant="h6">Payment Method</Typography>
+                <Typography variant="subtitle1">Payment Method</Typography>
               </Stack>
               <Box
                 sx={{
@@ -123,14 +123,14 @@ export default function Checkout(props: any) {
                       <TextField
                         label="Debit/Credit Card"
                         name="card"
-                        defaultValue=""
+                        defaultValue="Debit"
                         size="small"
                       />
                       <TextField
                         label="Name on card"
                         name="card_name"
                         size="small"
-                        defaultValue=""
+                        defaultValue="VY NGUYEN"
                       />
                       <TextField
                         label="CVV"
@@ -146,19 +146,26 @@ export default function Checkout(props: any) {
                         label="Card number"
                         name="card_number"
                         size="small"
-                        defaultValue=""
+                        defaultValue="443122383888"
                       />
                       <TextField
                         label="MM/YY"
                         name="expiry_date"
                         size="small"
-                        defaultValue=""
+                        defaultValue="12/27"
                       />
                     </Stack>
                   </Grid>
                 </Grid>
               </Box>
             </Stack>
+            <Button
+              variant="contained"
+              type="submit"
+              sx={{ alignSelf: "center" }}
+            >
+              SAVE
+            </Button>
           </Stack>
         </FormProvider>
       </Stack>
