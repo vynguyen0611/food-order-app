@@ -3,17 +3,24 @@ import { useState } from 'react';
 import { Route, useNavigate } from 'react-router-dom';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+// import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+// import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import { AppBar, Box, IconButton, Link, Stack, Toolbar, Tooltip } from '@mui/material';
 
 import CartButton from './CartButton';
 
 export default function Header(props: any) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  // const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
 
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  // const handleMode = (event: React.MouseEvent<HTMLElement>) => {
+  //   setIsDarkMode((prevMode) => !prevMode);
+  // };
 
   let navigate = useNavigate();
   const handleCheckout = (event: React.MouseEvent<HTMLElement>) => {
@@ -76,6 +83,26 @@ export default function Header(props: any) {
                   </AccountCircleIcon>
                 </IconButton>
               </Tooltip>
+              {/* <Tooltip
+                title={isDarkMode ? "Turn on the light" : "Turn off the light"}
+              >
+                <IconButton
+                  onClick={handleMode}
+                  sx={{
+                    ml: 2,
+                    width: 32,
+                    height: 32,
+                    borderRadius: "7px",
+                    border: "1px solid",
+                  }}
+                >
+                  {isDarkMode ? (
+                    <LightModeOutlinedIcon />
+                  ) : (
+                    <DarkModeOutlinedIcon />
+                  )}
+                </IconButton>
+              </Tooltip> */}
             </Stack>
           </Toolbar>
         </AppBar>

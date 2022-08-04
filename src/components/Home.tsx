@@ -23,15 +23,12 @@ export default function Home() {
         sx={{
           position: "relative",
           overflow: "hidden",
-          objectFit: "cover",
           height: "100%",
           minHeight: "100vh",
           width: "100%",
           backgroundImage:
             "linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(images/background.png)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
+          backgroundRepeat: "repeat",
         }}
       >
         {/* {cartIsShown && <Cart onCloseCart={hideCartHandler} />} */}

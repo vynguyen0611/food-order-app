@@ -37,9 +37,10 @@ export default function Checkout(props: any) {
         <FormProvider {...methods}>
           <Stack
             component="form"
-            onSubmit={handleSubmit((formData) =>
-              console.log("formData: ", formData)
-            )}
+            onSubmit={handleSubmit((formData) => {
+              props.onConfirm(formData);
+              console.log("formData: ", formData);
+            })}
           >
             <Stack>
               <Stack sx={{ my: 2 }}>
@@ -59,22 +60,25 @@ export default function Checkout(props: any) {
                     <Stack spacing={2} sx={{ p: 1 }}>
                       <TextField
                         label="Name"
+                        rules={{ required: true }}
                         name="name"
-                        defaultValue="Vy Nguyen"
+                        defaultValue="Vy"
                         size="small"
                       />
                       <TextField
                         label="Street Address"
                         name="street_address"
+                        rules={{ required: true }}
                         size="small"
-                        defaultValue="Unit 312 - 1162 Ouellette Ave"
+                        defaultValue="1164 ouellette"
                       />
 
                       <TextField
                         label="Postal code"
                         name="postal_code"
+                        rules={{ required: true }}
                         size="small"
-                        defaultValue="123456"
+                        defaultValue="N9A1C9"
                       />
                     </Stack>
                   </Grid>
@@ -83,15 +87,17 @@ export default function Checkout(props: any) {
                       <TextField
                         label="Phone number"
                         name="phone_number"
+                        rules={{ required: true }}
                         size="small"
-                        defaultValue="738838888"
+                        defaultValue="38838383838"
                       />
 
                       <TextField
                         label="City"
                         name="city"
+                        rules={{ required: true }}
                         size="small"
-                        defaultValue="windsor"
+                        defaultValue="WINDSOR"
                       />
                       <TextField
                         label="Note"
@@ -123,20 +129,22 @@ export default function Checkout(props: any) {
                       <TextField
                         label="Debit/Credit Card"
                         name="card"
-                        defaultValue="Debit"
+                        rules={{ required: true }}
+                        defaultValue="DEBIT"
                         size="small"
                       />
                       <TextField
                         label="Name on card"
                         name="card_name"
                         size="small"
-                        defaultValue="VY NGUYEN"
+                        defaultValue="VY"
                       />
                       <TextField
                         label="CVV"
                         name="cvv"
+                        rules={{ required: true }}
                         size="small"
-                        defaultValue=""
+                        defaultValue="111"
                       />
                     </Stack>
                   </Grid>
@@ -145,14 +153,16 @@ export default function Checkout(props: any) {
                       <TextField
                         label="Card number"
                         name="card_number"
+                        rules={{ required: true }}
                         size="small"
-                        defaultValue="443122383888"
+                        defaultValue="83837373338"
                       />
                       <TextField
                         label="MM/YY"
                         name="expiry_date"
+                        rules={{ required: true }}
                         size="small"
-                        defaultValue="12/27"
+                        defaultValue="11/29"
                       />
                     </Stack>
                   </Grid>

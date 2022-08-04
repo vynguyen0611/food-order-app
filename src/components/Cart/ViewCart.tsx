@@ -1,4 +1,6 @@
+import axios from 'axios';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -14,15 +16,27 @@ import OrderSumary from './OrderSumary';
 
 export default function ViewCart(props: any) {
   const { cart } = useCounter(props.id);
+  const form = useForm();
 
   const [isCheckout, setIsCheckout] = useState(false);
   const [cartExpanded, setcartExpanded] = useState<boolean>(false);
   const [paymentExpanded, setPaymentExpanded] = useState<boolean>(false);
 
-  const handleCheckout = () => {
+  const checkoutHandler = () => {
     setcartExpanded(false);
     setIsCheckout(true);
     setPaymentExpanded(true);
+  };
+
+  const placeOrderHander = async (userData: any) => {
+    // fetch("https://food-app-a0055-default-rtdb.firebaseio.com/orders.json", {
+    //   method: "POST",
+    //   body: JSON.stringify({ userInfo: userData, itemsInfo: cart }),
+    // });
+    await axios.post(
+      "https://food-app-a0055-default-rtdb.firebaseio.com/orders.json",
+      { userInfo: userData, itemsInfo: cart }
+    );
   };
 
   const expandedCartChangeHandler =
@@ -133,7 +147,7 @@ export default function ViewCart(props: any) {
                         <Divider />
                       </MuiAccordionSummary>
                       <MuiAccordionDetails sx={{ p: "0 8px 20px 16px" }}>
-                        <Checkout />
+                        <Checkout onConfirm={placeOrderHander} />
                       </MuiAccordionDetails>
                     </MuiAccordion>
                   )}
@@ -144,7 +158,7 @@ export default function ViewCart(props: any) {
                 {!isCheckout && (
                   <Button
                     variant="contained"
-                    onClick={handleCheckout}
+                    onClick={checkoutHandler}
                     sx={{
                       width: "110px",
                       alignSelf: "center",
@@ -159,7 +173,7 @@ export default function ViewCart(props: any) {
                 {isCheckout && (
                   <Button
                     variant="contained"
-                    onClick={handleCheckout}
+                    onClick={placeOrderHander}
                     sx={{
                       width: "110px",
                       alignSelf: "center",
