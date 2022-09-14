@@ -1,11 +1,11 @@
-import axios from 'axios';
-import { useQuery } from 'react-query';
-import { toast } from 'react-toastify';
+import axios from "axios";
+import { useQuery } from "react-query";
+import { toast } from "react-toastify";
 
-import { Container, Grid, Stack, Typography } from '@mui/material';
+import { Container, Grid, Stack, Typography } from "@mui/material";
 
-import MealItem from './MealItem';
-import { Product } from './MealsList';
+import MealItem from "./MealItem";
+import { Product } from "./MealsList";
 
 const getMeals = async (): Promise<Product[]> => {
   return await axios
@@ -35,7 +35,7 @@ export default function Meals() {
             MENU
           </Typography>
         </Stack>
-        <Grid container spacing={6}>
+        <Grid container spacing={8}>
           {!isLoading &&
             data?.map((item: Product) => <MealItem key={item.id} {...item} />)}
         </Grid>

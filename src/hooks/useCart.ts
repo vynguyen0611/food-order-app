@@ -1,6 +1,6 @@
-import createPersistedState from 'use-persisted-state';
+import createPersistedState from "use-persisted-state";
 
-import { Product } from '../components/Meals/MealsList';
+import { Product } from "../components/Meals/MealsList";
 
 export type CartItem = Product & {
   quantity: number;
@@ -87,6 +87,10 @@ const useCounter = (id: string) => {
     setCart((previousCart) => previousCart.filter((item) => item.id !== id));
   };
 
+  const clearCart = () => {
+    setCart([]);
+  };
+
   return {
     totalCount: totalItems,
     count: handleItemQuan(),
@@ -96,6 +100,7 @@ const useCounter = (id: string) => {
     deleteItem: deleteItem,
     increaseItemInCart: increaseItemInCart,
     decreaseItemInCart: decreaseItemInCart,
+    clearCart: clearCart,
   };
 };
 

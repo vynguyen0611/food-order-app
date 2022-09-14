@@ -1,26 +1,37 @@
 import axios from 'axios';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Box, Button, Container, Divider, Grid, Stack, Typography } from '@mui/material';
+import {
+    Box, Button, Container, Dialog, DialogActions, DialogTitle, Divider, Grid, Slide, Stack,
+    Typography
+} from '@mui/material';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
+import { TransitionProps } from '@mui/material/transitions';
 
 import useCounter from '../../hooks/useCart';
 import Cart from './Cart';
 import Checkout from './Checkout';
-import OrderSumary from './OrderSumary';
+import OrderSummary from './OrderSummary';
+
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>;
+  },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default function ViewCart(props: any) {
-  const { cart } = useCounter(props.id);
-  const form = useForm();
-
-  const [isCheckout, setIsCheckout] = useState(false);
+  const { cart, clearCart } = useCounter(props.id);
+  const [isCheckout, setIsCheckout] = useState<boolean>(false);
   const [cartExpanded, setcartExpanded] = useState<boolean>(false);
   const [paymentExpanded, setPaymentExpanded] = useState<boolean>(false);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
 
   const checkoutHandler = () => {
     setcartExpanded(false);
@@ -28,15 +39,29 @@ export default function ViewCart(props: any) {
     setPaymentExpanded(true);
   };
 
-  const placeOrderHander = async (userData: any) => {
-    // fetch("https://food-app-a0055-default-rtdb.firebaseio.com/orders.json", {
-    //   method: "POST",
-    //   body: JSON.stringify({ userInfo: userData, itemsInfo: cart }),
-    // });
+  let orderSummary: object;
+
+  const getOrderSummaryInfoHandler = (
+    subtotal: number,
+    tax: number,
+    total: number
+  ) => {
+    orderSummary = { subtotal: subtotal, tax: tax, total: total };
+    return orderSummary;
+  };
+
+  const placeOrderHandler = async (userData: any) => {
     await axios.post(
       "https://food-app-a0055-default-rtdb.firebaseio.com/orders.json",
-      { userInfo: userData, itemsInfo: cart }
+      {
+        itemsInfo: {
+          item: cart,
+          orderSummary: orderSummary,
+        },
+        userInfo: userData,
+      }
     );
+    setOpenDialog(true);
   };
 
   const expandedCartChangeHandler =
@@ -68,27 +93,25 @@ export default function ViewCart(props: any) {
           }}
         >
           <Stack sx={{ pb: 2 }}>
-            <Typography variant="h4" align="left">
+            <Typography variant="h5" align="left">
               View Cart & Checkout
             </Typography>
           </Stack>
           {cart.length <= 0 && (
             <Stack
-              spacing={2}
+              spacing={4}
               sx={{
                 justifyContent: "center",
-                my: 2,
                 alignItems: "center",
                 backgroundColor: "#f5f5f5",
               }}
             >
-              <Typography variant="h5" align="center">
+              <Typography variant="h6" align="center">
                 You haven't added any meals to your cart!
               </Typography>
               <Button
                 variant="contained"
                 sx={{ width: "110px" }}
-                // onClick={props.onCloseCart}
                 component={Link}
                 to="/"
               >
@@ -147,14 +170,15 @@ export default function ViewCart(props: any) {
                         <Divider />
                       </MuiAccordionSummary>
                       <MuiAccordionDetails sx={{ p: "0 8px 20px 16px" }}>
-                        <Checkout onConfirm={placeOrderHander} />
+                        <Checkout onConfirm={placeOrderHandler} />
                       </MuiAccordionDetails>
                     </MuiAccordion>
                   )}
                 </Stack>
               </Grid>
               <Grid item xs={12} md={3}>
-                <OrderSumary />
+                {/* <OrderSumary /> */}
+                <OrderSummary onConfirm={getOrderSummaryInfoHandler} />
                 {!isCheckout && (
                   <Button
                     variant="contained"
@@ -170,21 +194,33 @@ export default function ViewCart(props: any) {
                     Checkout
                   </Button>
                 )}
-                {isCheckout && (
-                  <Button
-                    variant="contained"
-                    onClick={placeOrderHander}
-                    sx={{
-                      width: "110px",
-                      alignSelf: "center",
-                      backgroundColor: "#ef4e99 !important",
-                      minWidth: "100%",
-                      mt: "10px",
-                    }}
-                  >
-                    Place Order
-                  </Button>
-                )}
+                <Dialog
+                  open={openDialog}
+                  TransitionComponent={Transition}
+                  keepMounted
+                  onClose={(event, reason) => {
+                    if (
+                      reason !== "backdropClick" &&
+                      reason !== "escapeKeyDown"
+                    ) {
+                      setOpenDialog(false);
+                    }
+                  }}
+                  aria-describedby="alert-dialog-slide-description"
+                  sx={{ alignSelf: "center" }}
+                >
+                  <DialogTitle>{"Your order is placed!"}</DialogTitle>
+                  <DialogActions>
+                    <Button
+                      onClick={clearCart}
+                      component={Link}
+                      to="/"
+                      sx={{ mr: "4px" }}
+                    >
+                      Home
+                    </Button>
+                  </DialogActions>
+                </Dialog>
               </Grid>
             </Grid>
           )}

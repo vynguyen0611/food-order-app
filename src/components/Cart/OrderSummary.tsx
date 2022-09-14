@@ -2,7 +2,7 @@ import { Divider, Stack, Typography } from '@mui/material';
 
 import useCounter from '../../hooks/useCart';
 
-export default function OrderSumary(props: any) {
+export default function OrderSummary(props: any) {
   const { cart } = useCounter(props.id);
   const subtotal = cart
     .reduce((sum, i) => sum + i.unitPrice * i.quantity, 0)
@@ -11,6 +11,8 @@ export default function OrderSumary(props: any) {
   const taxEst = ((Number(subtotal) * 13) / 100).toFixed(2);
 
   const total = (Number(subtotal) + Number(taxEst)).toFixed(2);
+
+  props.onConfirm(subtotal, taxEst, total);
 
   return (
     <>

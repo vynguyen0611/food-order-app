@@ -1,12 +1,21 @@
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
-    Badge, Button, ButtonGroup, Card, CardActions, CardContent, CardMedia, Grid, Stack, Typography
-} from '@mui/material';
+  Badge,
+  Button,
+  ButtonGroup,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Grid,
+  Stack,
+  Typography,
+} from "@mui/material";
 
-import useCounter from '../../hooks/useCart';
-import { Product } from './MealsList';
+import useCounter from "../../hooks/useCart";
+import { Product } from "./MealsList";
 
 export default function MealItem(props: Product) {
   const { count, increment, decrement } = useCounter(props.id);

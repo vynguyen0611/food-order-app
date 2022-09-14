@@ -22,10 +22,7 @@ export default function Checkout(props: any) {
     mode: "all",
   });
 
-  const {
-    handleSubmit,
-    formState: { errors },
-  } = methods;
+  const { handleSubmit } = methods;
 
   return (
     <>
@@ -39,7 +36,6 @@ export default function Checkout(props: any) {
             component="form"
             onSubmit={handleSubmit((formData) => {
               props.onConfirm(formData);
-              console.log("formData: ", formData);
             })}
           >
             <Stack>
@@ -142,6 +138,7 @@ export default function Checkout(props: any) {
                       <TextField
                         label="CVV"
                         name="cvv"
+                        type="password"
                         rules={{ required: true }}
                         size="small"
                         defaultValue="111"
@@ -172,9 +169,14 @@ export default function Checkout(props: any) {
             <Button
               variant="contained"
               type="submit"
-              sx={{ alignSelf: "center" }}
+              sx={{
+                width: "150px",
+                alignSelf: "center",
+                backgroundColor: "#ef4e99 !important",
+                mt: "10px",
+              }}
             >
-              SAVE
+              Place Order
             </Button>
           </Stack>
         </FormProvider>
